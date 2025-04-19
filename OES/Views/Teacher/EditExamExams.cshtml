@@ -1,0 +1,114 @@
+﻿@model OES.Models.ExamAndQuestion
+@{
+    ViewBag.Title = "Edit Exam";
+    Layout = "~/Views/Shared/_TeacherNavbarPage1.cshtml";
+}
+
+<section class="container my-5">
+    <h2 class="text-center mb-4" style="color:black;">Edit Exam Details</h2>
+
+    <form method="post" action="@Url.Action("EditExamExams2", "Teacher")"
+          class="p-4 rounded"
+          style="background-color: #1A2428; color: white; border: 1px solid #FFD700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="ExamId" value="@Model.createExamInfo.ExamId" />
+
+        <div class="mb-3">
+            <label for="ExamName" class="form-label" style="color: #00FFFF;">Exam Name</label>
+            <input type="text" class="form-control" id="ExamName" name="ExamName"
+                   value="@Model.createExamInfo.ExamName" required
+                   style="background-color: #0D1517; color: white; border: 1px solid #FFD700;" />
+        </div>
+
+        <div class="mb-3">
+            <label for="ExamSubName" class="form-label" style="color: #00FFFF;">Subject Name</label>
+            <input type="text" class="form-control" id="ExamSubName" name="ExamSubName"
+                   value="@Model.createExamInfo.ExamSubName" required
+                   style="background-color: #0D1517; color: white; border: 1px solid #FFD700;" />
+        </div>
+
+        <div class="mb-3">
+            <label for="ExamDate" class="form-label" style="color: #00FFFF;">Exam Date</label>
+            <input type="text" class="form-control" id="ExamDate" name="ExamDate" placeholder="Day/Month/Year"
+                   value="@Model.createExamInfo.ExamDate" required
+                   style="background-color: #0D1517; color: white; border: 1px solid #FFD700;" />
+        </div>
+
+        <div class="mb-3">
+            <label for="ExamMarks" class="form-label" style="color: #00FFFF;">Exam Marks</label>
+            <input type="number" class="form-control" id="ExamMarks" name="ExamMarks"
+                   value="@Model.createExamInfo.ExamMarks" required
+                   style="background-color: #0D1517; color: white; border: 1px solid #FFD700;" />
+        </div>
+
+        <div class="mb-3">
+            <label for="ExamDuration" class="form-label" style="color: #00FFFF;">Duration (in minutes)</label>
+            <input type="number" class="form-control" id="ExamDuration" name="ExamDuration"
+                   value="@Model.createExamInfo.ExamDuration" required
+                   style="background-color: #0D1517; color: white; border: 1px solid #FFD700;" />
+        </div>
+
+        <input type="hidden" name="BatchId" value="@Model.createExamInfo.BatchId" />
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-3"
+                    style="background-color: #00FFFF; color: #0D1517; border: none;">
+                Save Changes
+            </button>
+            <a href="@Url.Action("GoToExams", "Teacher", new { batchid = Model.createExamInfo.BatchId })"
+               class="btn btn-danger"
+               style="color: white;">Exit</a>
+        </div>
+    </form>
+</section>
+
+<section class="container my-5">
+    <h2 class="text-center mb-4" style="color: black;">Existing Questions</h2>
+
+    @if (Model.Questions != null && Model.Questions.Any())
+    {
+        <div class="row g-4">
+            @foreach (var Question in Model.Questions)
+            {
+                <div class="col-lg-6">
+                    <div class="card p-3"
+                         style="background-color: #1A2428; color: white; border: 1px solid #FFD700; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <strong style="color: #00FFFF;">QNo:</strong> @Question.QuestionNo
+                            </div>
+                            <a href="@Url.Action("EditQuestionFromExams", "Teacher", new { questionId = Question.QuestionId })"
+                               class="btn btn-warning btn-sm"
+                               style="background-color: #ffc107; border: none; color: #0D1517;">Edit Question</a>
+                        </div>
+                        <p>
+                            <strong style="color: #00FFFF;">Question:</strong> @Question.Question
+                        </p>
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <strong style="color: #00FFFF;">OP1:</strong> @Question.Option1
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong style="color: #00FFFF;">OP2:</strong> @Question.Option2
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong style="color: #00FFFF;">OP3:</strong> @Question.Option3
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong style="color: #00FFFF;">OP4:</strong> @Question.Option4
+                            </div>
+                        </div>
+                        <p>
+                            <strong style="color: #00FFFF;">Correct Answer:</strong> @Question.CorrectOption
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center" style="color: white;">No questions added yet.</p>
+    }
+</section>

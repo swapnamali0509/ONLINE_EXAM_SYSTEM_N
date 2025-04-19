@@ -1,0 +1,549 @@
+﻿@{
+    Layout = null; // Set your layout file if needed, otherwise it will inherit default layout
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        <style >
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar .nav-link {
+            color: #fff;
+            margin: 0 15px;
+        }
+
+            .navbar .nav-link:hover {
+                color: #00d1b2;
+            }
+
+        .navbar .nav-item {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            min-width: 200px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+            .dropdown-content ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+                .dropdown-content ul li {
+                    padding: 8px 10px;
+                    font-size: 14px;
+                }
+
+                    .dropdown-content ul li a {
+                        text-decoration: none;
+                        color: #333;
+                        display: block;
+                    }
+
+                        .dropdown-content ul li a:hover {
+                            color: #fff;
+                            background-color: #00d1b2;
+                            border-radius: 4px;
+                        }
+
+        .nav-item:hover .dropdown-content {
+            display: block;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            position: absolute;
+            left: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00d1b2;
+        }
+
+            .navbar-logo img {
+                max-height: 100%;
+                width: auto;
+            }
+
+        .navbar {
+            border: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #000000, #1f1f1f, #49676b, #6f4141);
+            background-size: 200% 200%;
+            animation: gradient 6s ease infinite;
+            color: white;
+        }
+
+
+
+        @@keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* Modal background gradient animation */
+@@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #000000, #1f1f1f, #49676b, #6f4141);
+    background-size: 200% 200%;
+    animation: gradientBackground 6s ease infinite;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: You can add some additional transition for smoothness */
+.modal-dialog {
+    transition: transform 0.3s ease;
+}
+
+.modal-header,
+.modal-footer {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #000000, #1f1f1f, #49676b, #6f4141);
+            background-size: 200% 200%;
+            animation: gradient 6s ease infinite;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Adjust as needed */
+            height: 100%; /* Ensures it matches the height of the navbar */
+        }
+
+        .navbar-logo-img {
+            max-height: 100%; /* Ensures the image does not exceed the navbar height */
+            max-width: 100%; /* Ensures the image scales proportionally */
+            object-fit: contain; /* Ensures the image looks good within its container */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img src="@Url.Content("~/Images/Screenshot__278_-removebg-preview.png")" alt="Logo">
+        </div>
+        <div class="navbar-content">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <script>
+                        function navigateToTeacherDashboard() {
+                            // Redirect to the desired URL
+                            window.location.href = '@Url.Action("TeacherDashboard", "Teacher")'; // Replace "/Classroom" with the actual URL
+                        }
+
+                    </script>
+                    <button class="nav-link active" id="home-tab" type="button" onclick="navigateToTeacherDashboard()">Home</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="examination-tab" type="button">Practice Exams</button>
+
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="recruitment-tab" type="button">Recruitment</button>
+                    <div class="dropdown-content">
+                        <ul>
+                            <li><a href="@Url.Action("CurrentJobs", "Recruitment")">&nbsp;&nbsp;Job Opportunities</a></li>
+                            <li><a href="@Url.Action("InternshipProgram", "Recruitment")">&nbsp;&nbsp;Internship Program</a></li>
+                            <li><a href="@Url.Action("CareerGuidance", "Recruitment")">&nbsp;&nbsp;Career Guidance</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <script>
+                            function navigateToClassroom() {
+                                // Redirect to the desired URL
+                                window.location.href = '@Url.Action("TeacherDashboard", "Teacher")'; // Replace "/Classroom" with the actual URL
+                            }
+                    </script>
+
+                    <button class="nav-link" id="classroom-tab" type="button" onclick="navigateToClassroom()">Classroom</button>
+
+                </li>
+                <li class="nav-item ms-auto">
+                    <button class="nav-link" id="create-profile-tab" type="button">Profile</button>
+                    <div class="dropdown-content">
+                        <ul>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#studentModal">&nbsp;&nbsp;For Student</a></li>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#teacherModal">&nbsp;&nbsp;For Teacher</a></li>
+                            <li>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#formModal">&nbsp;&nbsp;For Recruiter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="login-tab" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/Home/Login" id="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="Email" class="form-control" placeholder="example@domain.com" required aria-label="Email Address">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input type="password" id="password" name="Password" class="form-control" placeholder="Enter your password" required aria-label="Password">
+                                <button type="button" class="btn btn-outline-secondary" id="togglePassword" aria-label="Toggle Password Visibility">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Select Role</label>
+                            <select id="role" name="Role" class="form-select" required aria-label="Select Role">
+                                <option value="" selected disabled>Choose Role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Student">Student</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </div>
+                    </form>
+                    <!-- Forgot Password Link -->
+                    <div class="mt-3 text-center">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="text-decoration-none" aria-label="Forgot Password">Forgot Password?</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*forgetpasswordmodal*@
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/Home/SendOtp" id="forgotPasswordForm">
+                        <div class="mb-3">
+                            <label for="forgotEmail" class="form-label">Enter your Email Address</label>
+                            <input type="email" id="forgotEmail" name="Email" class="form-control" placeholder="example@domain.com" required aria-label="Email Address">
+                        </div>
+                        <div class="d-grid">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#otpModal">Send OTP</a>
+
+                           
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Teacher Modal -->
+    <div class="modal fade" id="teacherModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-student-content modal-content">
+                <!-- Modal Header -->
+                <div class="modal-student-header modal-header justify-content-center">
+                    <h5 class="modal-student-title modal-title" id="studentModalLabel">Teacher Form</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-student-body modal-body">
+                    <form method="post" action="/Home/CreateOtpTea" id="teacherForm">
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Full Name</label>
+                            <input type="text" name="TeaName" id="firstName" class="student-form-control form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email ID</label>
+                            <input type="email" name="TeaEmail" id="email" class="student-form-control form-control" placeholder="john.doe@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label">Institude Name</label>
+                            <input type="text" name="TeaInstitute" id="text" class="student-form-control form-control" placeholder="IT Prenuer" required>
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="TeaPassword" id="password" class="student-form-control form-control" placeholder="Enter password" required>
+                        </div>
+                        <div>
+                            <input type="hidden" name="RegRole" class="form-control otp-input" value="teacherr" />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#otpModal">Verify OTP</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Modal -->
+    <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-student-content modal-content">
+                <!-- Modal Header -->
+                <div class="modal-student-header modal-header justify-content-center">
+                    <h5 class="modal-student-title modal-title" id="studentModalLabel">Teacher Form</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-student-body modal-body">
+                    <form method="post" action="/Home/CreateOtp" id="studentForm">
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Full Name</label>
+                            <input type="text" name="StuName" id="firstName" class="student-form-control form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email ID</label>
+                            <input type="email" name="stuEmail" id="email" class="student-form-control form-control" placeholder="john.doe@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">UserName</label>
+                            <input type="text" name="StuUserName" id="username" class="student-form-control form-control" placeholder="JohnDoe123" required>
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="StuPass" id="password" class="student-form-control form-control" placeholder="Enter password" required>
+                        </div>
+                        <div>
+                            <input type="hidden" name="RegRole" class="form-control otp-input" value="studentt" />
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#otpModal">Verify OTP</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Modal -->
+    <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="otpModalLabel">OTP Verification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted" style="color:white">Enter the 6-digit code sent to your Email</p>
+                    <form method="post" action="/Home/VerifyOtp" id="otpForm">
+                        <div class="otp-container d-flex justify-content-between">
+                            <input type="text" name="Otp[]" class="form-control otp-input" maxlength="1" required>
+                            <input type="text" name="Otp[]" class="form-control otp-input" maxlength="1" required>
+                            <input type="text" name="Otp[]" class="form-control otp-input" maxlength="1" required>
+                            <input type="text" name="Otp[]" class="form-control otp-input" maxlength="1" required>
+                            <input type="text" name="Otp[]" class="form-control otp-input" maxlength="1" required>
+                            <input type="text" name="Otp[]" class="form-control otp-input" maxlength="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- New Password Modal -->
+    <div class="modal fade" id="newPasswordModal" tabindex="-1" aria-labelledby="newPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newPasswordModalLabel">Set New Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/Home/ResetPassword" id="resetPasswordForm">
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" id="newPassword" name="NewPassword" class="form-control" placeholder="Enter new password" required aria-label="New Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" name="ConfirmPassword" class="form-control" placeholder="Confirm new password" required aria-label="Confirm Password">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Show Password & Validation -->
+    <script>
+        // Automatically focus on the next OTP input field
+        document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+
+        // Automatically load OTP modal on Student form submit
+        document.getElementById('studentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            fetch('/Home/CreateOtpStu', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        new bootstrap.Modal(document.getElementById('otpModal')).show();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => alert("Error: " + error.message));
+        });
+
+        // Automatically load OTP modal on Teacher form submit
+        document.getElementById('teacherForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            fetch('/Home/CreateOtpTea', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        new bootstrap.Modal(document.getElementById('otpModal')).show();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => alert("Error: " + error.message));
+        });
+
+        // Show Password Toggle
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            this.textContent = type === 'password' ? 'Show' : 'Hide';
+        });
+
+        // Form Validation
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            if (!this.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert("Please fill out all fields correctly.");
+            }
+        });
+
+    </script>
+
+
+
+
+
+
+    @RenderBody()
+
+    <div class="footer">
+        <p>&copy; 2024 Team Examino. All rights reserved.</p>
+        <p>Follow us on <a href="#" style="color: #00d1b2;">Facebook</a>, <a href="#" style="color: #00d1b2;">Twitter</a>, and <a href="#" style="color: #00d1b2;">Instagram</a>.</p>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿@model Questions.Models.Exam.CreateQuestions
+@{
+    ViewBag.Title = "EditQuestionFromExams";
+    Layout = "~/Views/Shared/_TeacherNavbarPage1.cshtml";
+}
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="color: #00FFFF;">Edit Question</h2>
+    <form method="post" action="@Url.Action("SaveQuestionFromExams", "Teacher")" class="p-4 shadow-sm" style="background-color: #1A2428; border: 1px solid #FFD700; border-radius: 0.5rem; color: white;">
+        <input type="hidden" name="examId" value="@Model.ExamId" />
+        <input type="hidden" name="questionId" value="@Model.QuestionId" />
+
+        <div class="mb-4">
+            <label for="QuestionNo" class="form-label fw-bold" style="color: #00FFFF;">Question Number</label>
+            <input type="number" class="form-control" id="QuestionNo" name="QuestionNo" value="@Model.QuestionNo" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+        </div>
+
+        <div class="mb-4">
+            <label for="Question" class="form-label fw-bold" style="color: #00FFFF;">Question Text</label>
+            <textarea class="form-control" id="Question" name="Question" rows="3" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;">@Model.Question</textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Option1" class="form-label fw-bold" style="color: #00FFFF;">Option 1</label>
+                <input type="text" class="form-control" id="Option1" name="Option1" value="@Model.Option1" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Option2" class="form-label fw-bold" style="color: #00FFFF;">Option 2</label>
+                <input type="text" class="form-control" id="Option2" name="Option2" value="@Model.Option2" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Option3" class="form-label fw-bold" style="color: #00FFFF;">Option 3</label>
+                <input type="text" class="form-control" id="Option3" name="Option3" value="@Model.Option3" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Option4" class="form-label fw-bold" style="color: #00FFFF;">Option 4</label>
+                <input type="text" class="form-control" id="Option4" name="Option4" value="@Model.Option4" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="CorrectOption" class="form-label fw-bold" style="color: #00FFFF;">Correct Option</label>
+            <input type="text" class="form-control" id="CorrectOption" name="CorrectOption" value="@Model.CorrectOption" placeholder="Enter the correct option (e.g., Option1)" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary" style="background-color: #00FFFF; border-color: #00FFFF; color: #0D1517;">
+                <i class="fas fa-save"></i> Save Question
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&display=swap');
+    body {
+        background-color: #1A2428;
+        font-family: 'Cormorant Infant', serif;
+    }
+</style>

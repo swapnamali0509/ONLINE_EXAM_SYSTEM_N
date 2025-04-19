@@ -1,0 +1,649 @@
+﻿@model OES.Models.PassExamDetails
+@{
+    ViewBag.Title = "StartExam";
+}
+<head>
+    <style>
+        /* General body settings */
+        body {
+            font-family: 'Cormorant Infant', serif;
+            background-color: #1c1f26;
+            color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Main wrapper for the exam start screen */
+        #mainBody {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Exam start screen container */
+        #exam-start-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1A2428; /* Dark background for consistency */
+        }
+
+        .card {
+            background-color: #2d2f38; /* Dark card background */
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .card-body {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            color: #FFD700; /* Golden color for headings */
+            margin-bottom: 1.5rem;
+        }
+
+        .card-text {
+            font-size: 1.25rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .list-group-item {
+            background-color: #2d2f38;
+            color: white;
+            border: 1px solid #333;
+        }
+
+            .list-group-item:hover {
+                background-color: #3a3f47; /* Slight hover effect for list items */
+            }
+
+        .btn-primary {
+            background-color: #00FFFF; /* Cyan color for start button */
+            color: #0D1517;
+            font-size: 1.25rem;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #00cccc; /* Darker cyan on hover */
+                transform: scale(1.05);
+            }
+
+        /* Exam screen container when exam starts */
+        #exam-container {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            background-color: #1A2428;
+            overflow-y: auto;
+        }
+
+        /* Navbar for exam page */
+        nav.navbar {
+            background: linear-gradient(45deg, #007bff, #6610f2);
+        }
+
+        .navbar .text-white {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar h1 {
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Timer and exam progress bar settings */
+        .navbar h2 {
+            font-size: 1.5rem;
+            color: #FFD700;
+        }
+
+        /* Timer digits */
+        .d-flex {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Exam question container styling */
+        .question-container {
+            background-color: #2d2f38;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: white;
+        }
+
+            .question-container p {
+                font-size: 1.25rem; /* Slightly smaller, balanced font size */
+                font-weight: bold;
+                margin-bottom: 1rem; /* Reduced margin for better balance */
+            }
+
+            /* Radio button options styling */
+            .question-container input[type="radio"] {
+                margin-right: 10px;
+                vertical-align: middle;
+                transform: scale(1.5); /* Make the radio button larger */
+            }
+
+            .question-container label {
+                font-size: 1.1rem; /* Adjusted font size for better balance */
+                color: white;
+                display: inline-flex; /* Make the label and radio button inline */
+                align-items: center; /* Vertically align the radio button and label */
+                margin-right: 20px; /* Slight margin between options */
+            }
+
+            .question-container .option-container {
+                margin-bottom: 1rem; /* Slight bottom margin for spacing between options */
+            }
+
+        /* Exam re-enter fullscreen alert container */
+        #exam-exitFullScreen-container {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            position: fixed;
+            background-color: #1A2428;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+        }
+
+            #exam-exitFullScreen-container p {
+                color: white;
+            }
+
+            #exam-exitFullScreen-container button {
+                background-color: #dc3545;
+                color: white;
+                font-size: 1.25rem;
+                border-radius: 8px;
+                padding: 1rem 2rem;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+                #exam-exitFullScreen-container button:hover {
+                    background-color: #c82333;
+                    transform: scale(1.05);
+                }
+
+        /* Buttons */
+        button {
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #dc3545;
+            }
+
+        /* Exam panel container */
+        #exam-panel {
+            padding: 2rem;
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive styling for smaller screens */
+        @@media (max-width: 768px) {
+            .card-body {
+                padding: 1rem;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+                padding: 0.75rem 1.5rem;
+            }
+
+            .question-container {
+                padding: 1rem;
+            }
+
+                .question-container p {
+                    font-size: 1.1rem; /* Adjust for smaller screens */
+                }
+
+                .question-container label {
+                    font-size: 1rem; /* Adjust options font size */
+                }
+        }
+    </style>
+</head>
+
+
+<section id="mainBody">
+    <!-- Camera Access Screen -->
+    <div id="camera-access-container" class="vh-100 d-flex justify-content-center align-items-center" style="background-color: #0D1517;">
+        <div class="text-center text-white">
+            <!-- Header -->
+            <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold; color: #00FFFF;">Camera Access Required</h1>
+
+            <!-- Instruction Text -->
+            <p class="mb-4" style="font-size: 1.2rem; color: #ccc;">
+                Please allow camera access to proceed. The camera will remain active during the exam to ensure fairness.
+            </p>
+
+            <!-- Camera Preview -->
+            <video id="cameraFeed" autoplay playsinline muted
+                   style="width: 100%; max-width: 600px; height: auto; border: 3px solid #FFD700; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);">
+            </video>
+
+            <!-- Error Message -->
+            <p id="cameraError" class="text-danger mt-3" style="display: none; font-size: 1rem;">
+                Unable to access the camera. Please check your permissions or ensure no other app is using the camera.
+            </p>
+
+            <!-- Loader or Transition Message -->
+            <p id="cameraLoading" class="mt-4" style="font-size: 1.1rem; color: #28a745; display: none;">
+                Camera successfully accessed. Redirecting to the exam...
+            </p>
+        </div>
+    </div>
+
+    <!-- Starting Exam -->
+    <div id="exam-start-container">
+        <section class="d-flex justify-content-center align-items-center vh-100">
+            <div class="card shadow-lg" style="max-width: 500px; width: 100%; padding: 30px;">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4" style="font-size: 1.75rem; font-weight: bold; color: #ff0000;">
+                        Important Instructions
+                    </h1>
+                    <p class="card-text text-center mb-4" style="font-size: 1.1rem; color: white;">
+                        Please read the following instructions carefully before starting the exam:
+                    </p>
+                    <ul class="list-group list-group-flush mb-4 text-left" style="font-size: 1rem; color: #555;">
+                        <li class="list-group-item">Do not exit fullscreen mode during the exam.</li>
+                        <li class="list-group-item">
+                            If you exit fullscreen mode, you must re-enter within 07 seconds.
+                        </li>
+                        <li class="list-group-item">
+                            Failing to re-enter fullscreen mode will result in the exam finishing automatically.
+                        </li>
+                    </ul>
+                    <button id="startBtn" class="btn btn-primary w-100" style="font-size: 1.1rem; padding: 12px 20px; border-radius: 8px;">
+                        Start Exam
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- Exam NavBar -->
+    <div id="exam-container">
+        <div>
+            <nav class="navbar py-4">
+                <div class="container-fluid">
+                    <div class="row w-100 align-items-center">
+                        <div class="col-9 d-flex justify-content-center align-items-center">
+                            <h1 class="text-white fw-bold text-center m-0">@Model.CreateExamInfo.ExamName @Model.CreateExamInfo.ExamSubName</h1>
+                        </div>
+                        <div class="col-3 text-end">
+                            <div class="row align-items-center">
+                                <div class="col-6 text-white">
+                                    <h2 class="fw-bold">Timer</h2>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end align-items-center">
+                                    <div class="d-flex text-white" style="font-size: 2rem; font-weight: bold;">
+                                        <span id="TiHour">00</span>
+                                        <span class="mx-2">:</span>
+                                        <span id="TiMin">00</span>
+                                        <span class="mx-2">:</span>
+                                        <span id="TiSec">00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Exam Questions -->
+        <div id="exam-panel">
+            <form method="post" action="@Url.Action("SubmitAnswers", "Student")">
+                @if (Model.Questions != null && Model.Questions.Any())
+                {
+                    foreach (var question in Model.Questions)
+                    {
+                        <div class="question-container">
+                            <p style="font-size: 1.25rem; color: #FFD700; font-weight: bold;">Question @question.QuestionNo:</p>
+                            <p style="font-size: 1.15rem; color: white;">@question.Question</p>
+
+                            <!-- Options with Radio Buttons -->
+                            <div class="option-container">
+                                <input type="radio" name="answers[@question.QuestionNo].SelectedOption" value="@question.Option1" id="@question.QuestionNo-Option1" />
+                                <label for="@question.QuestionNo-Option1">@question.Option1</label>
+                            </div>
+                            <div class="option-container">
+                                <input type="radio" name="answers[@question.QuestionNo].SelectedOption" value="@question.Option2" id="@question.QuestionNo-Option2" />
+                                <label for="@question.QuestionNo-Option2">@question.Option2</label>
+                            </div>
+                            <div class="option-container">
+                                <input type="radio" name="answers[@question.QuestionNo].SelectedOption" value="@question.Option3" id="@question.QuestionNo-Option3" />
+                                <label for="@question.QuestionNo-Option3">@question.Option3</label>
+                            </div>
+                            <div class="option-container">
+                                <input type="radio" name="answers[@question.QuestionNo].SelectedOption" value="@question.Option4" id="@question.QuestionNo-Option4" />
+                                <label for="@question.QuestionNo-Option4">@question.Option4</label>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No questions available.</p>
+                }
+
+                <button type="submit" class="btn btn-primary w-100">Submit Exam</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Fullscreen Exit Alert -->
+    <div id="exam-exitFullScreen-container">
+        <p>You exited fullscreen mode. Click the button below to re-enter fullscreen.</p>
+        <p>within <span id="reEnterSec">07</span> seconds</p>
+        <button id="reenterBtn" class="btn btn-danger" aria-label="Re-enter fullscreen">Re-enter Fullscreen</button>
+    </div>
+</section>
+
+
+@*js*@
+<script>
+        const examStartContainer = document.getElementById('exam-start-container');
+        const examContainer = document.getElementById('exam-container');
+        const exitFullContainer = document.getElementById('exam-exitFullScreen-container');
+        const startBtn = document.getElementById('startBtn');
+        const reenterBtn = document.getElementById('reenterBtn');
+
+        let isFullscreenActive = false;
+        let reenterTimerInterval;
+        let exitHandled = false; // Flag to prevent multiple exits
+
+        // Start button event listener
+        startBtn.addEventListener('click', () => {
+            examStartContainer.style.display = 'none';
+            enterFullscreen();
+            startExamTimer();
+        });
+
+        // Re-enter button event listener
+        reenterBtn.addEventListener('click', () => {
+            exitFullContainer.style.display = 'none';
+            clearInterval(reenterTimerInterval);
+            enterFullscreen();
+        });
+
+        // Enter fullscreen function
+        function enterFullscreen() {
+            if (!document.fullscreenElement && !isFullscreenActive) {
+                isFullscreenActive = true;
+                examContainer.style.display = 'flex';
+                if (examContainer.requestFullscreen) {
+                    examContainer.requestFullscreen();
+                } else if (examContainer.webkitRequestFullscreen) {
+                    examContainer.webkitRequestFullscreen();
+                } else if (examContainer.mozRequestFullScreen) {
+                    examContainer.mozRequestFullScreen();
+                } else if (examContainer.msRequestFullscreen) {
+                    examContainer.msRequestFullscreen();
+                }
+                exitHandled = false; // Reset exit flag when fullscreen is entered
+            }
+        }
+
+        // Exit fullscreen function
+        function exitFullscreen() {
+            if (document.fullscreenElement ||
+                document.webkitFullscreenElement ||
+                document.mozFullScreenElement ||
+                document.msFullscreenElement) {
+
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) { // Firefox
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) { // IE/Edge
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Exit fullscreen handler
+        function exitFullscreenHandler() {
+            if (exitHandled) return; // Prevent multiple exits
+            exitHandled = true;
+            isFullscreenActive = false;
+            exitFullscreen();
+            examContainer.style.display = 'none';
+            exitFullContainer.style.display = 'flex';
+            startReEnteringTimer();
+        }
+
+        // Event listener to detect when the tab becomes hidden (e.g., switching tabs, alt-tabbing)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden' && !exitHandled) {
+                exitFullscreenHandler();
+            }
+        });
+
+        // Event listener for the fullscreenchange event to detect when fullscreen mode changes
+        examContainer.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement && isFullscreenActive && !exitHandled) {
+                exitFullscreenHandler();
+            }
+        });
+
+        // Event listener for the blur event (losing focus on the window, e.g., alt-tab or clicking away)
+        window.addEventListener("blur", () => {
+            if (!exitHandled) {
+                exitFullscreenHandler();
+            }
+        });
+       function getHours() {
+            let timeInMi = @Model.CreateExamInfo.ExamDuration;
+            let hours = Math.floor(timeInMi / 60); // Use Math.floor to ensure whole hours
+            return hours;
+        }
+
+        function getMin() {
+            let timeInMi = @Model.CreateExamInfo.ExamDuration;
+            let mins = timeInMi % 60;
+            return mins;
+        }
+        // Timer for exam
+        function startExamTimer() {
+            let hour = getHours();
+            let min = getMin();
+            let sec = 0;
+
+            const timerInterval = setInterval(() => {
+                if (sec === 0) {
+                    if (min === 0) {
+                        if (hour === 0) {
+                            clearInterval(timerInterval);
+                            submitExam();
+                            return;
+                        } else {
+                            hour--;
+                            min = 59;
+                        }
+                    } else {
+                        min--;
+                        sec = 59;
+                    }
+                } else {
+                    sec--;
+                }
+
+                document.getElementById("TiHour").innerText = hour.toString().padStart(2, '0');
+                document.getElementById("TiMin").innerText = min.toString().padStart(2, '0');
+                document.getElementById("TiSec").innerText = sec.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // Timer for re-entering fullscreen
+        function startReEnteringTimer() {
+            let reSec = 7;
+            document.getElementById("reEnterSec").innerText = reSec.toString().padStart(2, '0');
+
+            reenterTimerInterval = setInterval(() => {
+                if (reSec > 0) {
+                    reSec--;
+                    document.getElementById("reEnterSec").innerText = reSec.toString().padStart(2, '0');
+                } else {
+                    clearInterval(reenterTimerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        // Function to submit the form programmatically
+        function submitExam() {
+            const examForm = document.querySelector("#exam-panel form");
+            if (examForm) {
+                examForm.submit();
+            }
+        }
+
+        // Prevent specific key combinations
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey) {
+                if (event.key === 'Tab') {
+                    event.preventDefault();
+                    //alert('Tab switching is disabled during the exam!');
+                }
+
+                if (event.key === 'r' || event.key === 'R') {
+                    event.preventDefault();
+                    //alert('Page reload is disabled during the exam!');
+                }
+            }
+        });
+
+        // Prevent default behavior for F5 (another common way to reload)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'F5') {
+                event.preventDefault();
+                alert('Page reload is disabled during the exam!');
+            }
+        });
+
+        // This will run as soon as the page is loaded
+        window.onload = function () {
+            var studentId = @Model.Student.StudentId;
+            var examId = @Model.CreateExamInfo.ExamId;
+
+            // Make the fetch request to the controller action
+            fetch('/Student/CheckStudentExamBlock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `studentId=${studentId}&examId=${examId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    document.getElementById('startBtn').disabled = true; // Disable the button
+                    document.getElementById('startBtn').innerText = "You are blocked for this exam"; // Change button text
+                }
+            })
+            .catch(error => {
+                document.getElementById('statusMessage').innerText = "Error: " + error.message;
+            });
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //camera
+    document.addEventListener("DOMContentLoaded", () => {
+        const cameraFeed = document.getElementById("cameraFeed");
+        const cameraAccessContainer = document.getElementById("camera-access-container");
+        const proceedToExamBtn = document.getElementById("proceedToExamBtn");
+        const cameraError = document.getElementById("cameraError");
+        const examStartContainer = document.getElementById("exam-start-container");
+        const examContainer = document.getElementById("exam-container");
+        const startExamBtn = document.getElementById("startExamBtn");
+
+        // Access Camera
+        navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then((stream) => {
+                cameraFeed.srcObject = stream;
+                proceedToExamBtn.disabled = false;
+            })
+            .catch((error) => {
+                console.error("Error accessing the camera:", error);
+                cameraError.style.display = "block";
+            });
+
+        // Proceed to Exam Instructions
+        proceedToExamBtn.addEventListener("click", () => {
+            cameraAccessContainer.style.display = "none";
+            examStartContainer.style.display = "flex";
+        });
+
+        // Start Exam
+        startExamBtn.addEventListener("click", () => {
+            examStartContainer.style.display = "none";
+            examContainer.style.display = "block";
+            enterFullscreen(document.body);
+        });
+
+        // Enforce Fullscreen
+        function enterFullscreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+        }
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0sG1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>

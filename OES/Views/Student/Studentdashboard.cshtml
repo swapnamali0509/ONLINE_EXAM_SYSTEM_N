@@ -1,0 +1,153 @@
+﻿@model OES.Models.StudentAndBatch
+
+@{
+    ViewBag.Title = "StudentDashboard";
+    Layout = "~/Views/Shared/_Student_Layout.cshtml";
+}
+<link rel="icon" href="~/Images/fevicon.png" type="Images/fevicon" />
+<style>
+    /* Custom Styles for Student Info Card */
+    .student-info-card {
+        background-color: #1A2428; /* Dark background */
+        color: white;
+        border: 1px solid #FFD700;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        text-align: center;
+        width: 100%; /* Ensure full width for mobile responsiveness */
+        max-width: 600px; /* Limit max width to prevent too wide on large screens */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .student-info-card h2 {
+            margin-bottom: 0.5rem;
+            color: #FFD700; /* Golden color for header */
+        }
+
+        .student-info-card p {
+            font-size: 1rem;
+        }
+
+        .student-info-card strong {
+            color: #FFD700; /* Highlight "strong" text */
+        }
+
+    /* Global Styles */
+    body {
+        font-family: 'Cormorant Infant', serif;
+        background-color: #1c1f26;
+        color: white;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #FFD700; /* Golden for headings */
+        margin-top: 2rem;
+    }
+
+    .container {
+        margin-top: 2rem;
+    }
+
+    .card {
+        background-color: #1A2428;
+        border: 1px solid #FFD700;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(255, 255, 255, 0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: white;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        margin-bottom: 1rem;
+    }
+
+    .batch-card:hover {
+        transform: scale(1.05); /* Scale effect on hover */
+        box-shadow: 0 6px 10px rgba(255, 255, 255, 0.8); /* Enhanced shadow on hover */
+    }
+
+    /* Button Styles */
+    .btn {
+        background-color: #00FFFF; /* Cyan */
+        border: none;
+        color: #0D1517;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #00cccc; /* Slightly darker cyan */
+            transform: scale(1.05); /* Slight scale effect */
+        }
+
+    .alert {
+        background-color: #FFD700; /* Golden color for alert */
+        color: #0D1517;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .batch-card {
+        margin-bottom: 2rem;
+    }
+
+    .row {
+        justify-content: center;
+    }
+</style>
+
+<div class="container">
+    <div class="student-info-card">
+        <h2>Student Information</h2>
+        <p><strong>Student ID:</strong> @Model.Student.StudentId</p>
+        <p><strong>Name:</strong> @Model.Student.StuName</p>
+        <p><strong>Email:</strong> @Model.Student.StuEmail</p>
+    </div>
+</div>
+
+<!-- Batch Information -->
+<div>
+    <h2 style="text-align:center">Associated Batches</h2>
+    @if (Model.Batches == null || !Model.Batches.Any())
+    {
+        <div class="alert alert-warning">No batches found.</div>
+    }
+    else
+    {
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                @foreach (var batch in Model.Batches)
+                {
+                    <div class="col-md-4 mb-4 batch-card">
+                        <div class="card animated-card">
+                            <div class="card-body d-flex flex-column text-center">
+                                <p class="card-text"><strong>Batch ID:</strong> @batch.BatchId</p>
+                                <h5 class="card-title">@batch.BatchName</h5>
+                                <p class="card-text"><strong>Institute:</strong> @batch.InstitutesName</p>
+                                <div class="mt-auto">
+                                    @Html.ActionLink("Go Batch", "GoToBatch", "Student", new { batchid = @batch.BatchId, studentid = Model.Student.StudentId }, new { @class = "btn btn-primary btn-sm" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

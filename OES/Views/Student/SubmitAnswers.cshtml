@@ -1,0 +1,21 @@
+﻿@model IEnumerable<OES.Models.QuestionAnswer>
+
+@{
+    ViewBag.Title = "SubmitAnswers";
+}
+
+<h2>SubmitAnswers</h2>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var answer in Model)
+        {
+            <li>Question No: @answer.QuestionNo, Selected Option: @answer.SelectedOption</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No answers were submitted.</p>
+}

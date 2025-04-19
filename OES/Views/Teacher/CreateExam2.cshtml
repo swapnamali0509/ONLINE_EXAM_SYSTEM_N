@@ -1,0 +1,150 @@
+﻿@model OES.Models.ExamAndQuestion
+@{
+    ViewBag.Title = "Create Exam - Add Questions";
+    Layout = "~/Views/Shared/_TeacherNavbarPage1.cshtml";
+}
+
+@if (TempData["Status"] != null)
+{
+    <script>
+        alert('@TempData["Status"]');
+    </script>
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&display=swap');
+
+    body {
+        background-color: #1A2428;
+        font-family: 'Cormorant Infant', serif;
+        font-size: 1.2rem;
+    }
+</style>
+
+
+<h1 class="text-center my-4" style="color: #00FFFF;">Add Questions to Exam</h1>
+
+<section class="container-fluid">
+    <!-- Button to Open Modal -->
+    <div class="text-center my-4">
+        <button type="button" class="btn btn-primary" style="background-color: #00FFFF; border-color: #00FFFF; color: #0D1517;" data-bs-toggle="modal" data-bs-target="#CreateQuestionModal">
+            Add New Question
+        </button>
+    </div>
+
+    <!-- Modal for Adding Questions -->
+    <div class="modal fade" id="CreateQuestionModal" tabindex="-1" aria-labelledby="CreateQuestionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background-color: #1A2428; color: white; border: 1px solid #FFD700;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="CreateQuestionModalLabel" style="color: white;">Add New Question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <form method="post" action="@Url.Action("AddQuestion", "Teacher")">
+                    <div class="modal-body">
+                        <input type="hidden" name="examId" value="@Model.createExamInfo.ExamId" />
+
+                        <div class="mb-3">
+                            <label for="QuestionNo" class="form-label" style="color: white;">Question Number</label>
+                            <input type="number" class="form-control" id="QuestionNo" name="QuestionNo" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Question" class="form-label" style="color: white;">Question Text</label>
+                            <textarea class="form-control" id="Question" name="Question" rows="3" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="Option1" class="form-label" style="color: white;">Option 1</label>
+                                <input type="text" class="form-control" id="Option1" name="Option1" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="Option2" class="form-label" style="color: white;">Option 2</label>
+                                <input type="text" class="form-control" id="Option2" name="Option2" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="Option3" class="form-label" style="color: white;">Option 3</label>
+                                <input type="text" class="form-control" id="Option3" name="Option3" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="Option4" class="form-label" style="color: white;">Option 4</label>
+                                <input type="text" class="form-control" id="Option4" name="Option4" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="CorrectOption" class="form-label" style="color: white;">Correct Option</label>
+                            <input type="text" class="form-control" id="CorrectOption" name="CorrectOption" placeholder="e.g., Heap" required style="background-color: #0D1517; border: 1px solid #00FFFF; color: white;" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #1A2428; border: 1px solid #FFD700; color: white;">Close</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #00FFFF; border-color: #00FFFF; color: #0D1517;">Save Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container my-5">
+    <h2 class="text-center mb-4" style="color: #00FFFF;">Existing Questions</h2>
+
+    @if (Model.Questions != null && Model.Questions.Any())
+    {
+        <div class="row g-4">
+            @foreach (var Question in Model.Questions)
+            {
+                <div class="col-lg-6 d-flex">
+                    <div class="card flex-grow-1 d-flex flex-column justify-content-between"
+                         style="background-color: #1A2428; color: white; border: 1px solid #FFD700;
+                                border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 1.5rem;">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <strong style="color: #00FFFF;">QNo:</strong> @Question.QuestionNo
+                                </div>
+                                <a href="@Url.Action("EditQuestion", "Teacher", new { questionId = Question.QuestionId })"
+                                   class="btn btn-warning btn-sm"
+                                   style="background-color: #ffc107; border: none; color: #0D1517;">Edit</a>
+                            </div>
+                            <p>
+                                <strong style="color: #00FFFF;">Question:</strong> @Question.Question
+                            </p>
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <strong style="color: #00FFFF;">OP1:</strong> @Question.Option1
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <strong style="color: #00FFFF;">OP2:</strong> @Question.Option2
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <strong style="color: #00FFFF;">OP3:</strong> @Question.Option3
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <strong style="color: #00FFFF;">OP4:</strong> @Question.Option4
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <strong style="color: #00FFFF;">Correct Answer:</strong> @Question.CorrectOption
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center" style="color: white;">No questions added yet.</p>
+    }
+</section>
+
+
+<section>
+    <div class="col-md-2 text-center">
+        <a href="@Url.Action("GoToBatch", "Teacher", new { BatchId = Model.createExamInfo.BatchId })" class="btn btn-primary btn-sm" style="background-color: #00FFFF; border-color: #00FFFF; color: #0D1517;">
+            Finish
+        </a>
+    </div>
+</section>

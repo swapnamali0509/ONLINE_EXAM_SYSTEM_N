@@ -1,0 +1,309 @@
+﻿@model OES.Models.ExamResultToView
+@{
+    ViewBag.Title = "GoToResults";
+    Layout = "~/Views/Shared/_TeacherNavbarPage1.cshtml";
+}
+
+<link rel="icon" href="~/Images/fevicon.png" type="image/png" />
+<section class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold text-primary">Batch Information</h5>
+                        <p class="card-text"><strong>Batch ID:</strong> @Model.BatchDetails.BatchId</p>
+                        <p class="card-text"><strong>Batch Name:</strong> @Model.BatchDetails.BatchName</p>
+                        <p class="card-text"><strong>Institute Name:</strong> @Model.BatchDetails.InstitutesName</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="container-fluid py-5">
+    @if (Model.ExamDetails != null && Model.ExamDetails.Any())
+    {
+        <div class="container">
+            <h2 class="text-center mb-4">Exams</h2>
+            <div class="row g-4">
+                @foreach (var exam in Model.ExamDetails)
+                {
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold text-primary">@exam.ExamName</h5>
+                                <p class="card-text"><strong>Subject:</strong> @exam.ExamSubName</p>
+                                <p class="card-text"><strong>Date:</strong> @exam.ExamDate.ToString("yyyy-MM-dd")</p>
+                                <p class="card-text"><strong>Marks:</strong> @exam.ExamMarks</p>
+                                <p class="card-text"><strong>Time:</strong> @exam.ExamDuration</p>
+                                <p class="card-text">
+                                    <span class="badge @(exam.ExamStatus ? "bg-success" : "bg-warning text-dark")">
+                                        @(exam.ExamStatus ? "Complete" : "Not Started")
+                                    </span>
+                                </p>
+
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultModal-@exam.ExamId">
+                                        Show Results
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal is moved outside the card -->
+                }
+            </div>
+        </div>
+
+        <!-- Modal structure for all exams -->
+        foreach (var exam in Model.ExamDetails)
+        {
+            <div class="modal fade" id="resultModal-@exam.ExamId" tabindex="-1" aria-labelledby="resultModalLabel-@exam.ExamId" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="resultModalLabel-@exam.ExamId">
+                                Results for @exam.ExamName
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Marks Obtained</th>
+                                        <th>Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var student in Model.BatchStudents)
+                                    {
+                                        var studentMarks = Model.ExamResults.FirstOrDefault(s => s.StudentId == student.StudentId && s.ExamId == exam.ExamId);
+
+                                        <tr>
+                                            <td>@student.StuName</td>
+                                            <td>@(studentMarks != null ? studentMarks.Marks.ToString() : "N/A")</td>
+                                            <td>
+                                                @(studentMarks != null && studentMarks.Marks >= (exam.ExamMarks * 0.35) ? "Pass" : "Fail")
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>No exams found.</strong>
+        </div>
+    }
+</section>
+
+
+
+
+<style>
+    body {
+        font-family: 'Cormorant Infant', serif;
+
+    }
+
+    @@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&display=swap');
+    /* General Styling */
+    body {
+        font-family: 'Cormorant Infant', serif;
+        background-color: #0D1517; /* Dark background */
+        color: #FFFFFF; /* White text for high contrast */
+        margin: 0;
+        padding: 0;
+        font-size: 1.2rem;
+    }
+
+    /* Section Headers */
+    h2 {
+        font-weight: bold;
+        font-size: 2.5rem;
+        color: #FFFFFF; /* White text */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Batch Information Section */
+    section div h2 {
+        font-size: 2rem;
+        color: #00FFFF; /* Cyan highlight */
+        margin-bottom: 10px;
+    }
+
+    /* Card Styles */
+    .card {
+        background-color: #1A2428; /* Slightly lighter background for contrast */
+        color: #FFFFFF; /* White text */
+        border: none;
+        border: 1px solid #FFD700;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(255, 255, 255, 0.6); /* White shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0; /* Start with invisible */
+        transform: translateY(50px); /* Initial position for animation */
+        animation: slideUp 0.6s ease-out forwards; /* Slide up animation */
+        height: 100%;
+    }
+    @@keyframes slideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+        /* Hover Effect for Cards */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 255, 255, 0.4); /* Cyan hover shadow */
+        }
+
+    /* Card Title */
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #00FFFF; /* Cyan */
+    }
+
+    /* Card Text */
+    .card-text {
+        color: #B8B8B8; /* Light gray for secondary text */
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background-color: #00FFFF; /* Cyan */
+        border: none;
+        border-radius: 6px;
+        color: #0D1517; /* Dark text on cyan buttons */
+        padding: 8px 16px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #008B8B; /* Darker cyan for hover */
+        }
+
+    .btn-secondary {
+        background-color: #C94A4A; /* Red */
+        border: none;
+        border-radius: 6px;
+        color: #FFFFFF; /* White text */
+    }
+
+        .btn-secondary:hover {
+            background-color: #A83636; /* Darker red for hover */
+        }
+
+    /* Modal Styling */
+    .modal-content {
+        background-color: #1A2428; /* Same as card background */
+        color: white;
+        border: 1px solid #00FFFF; /* Cyan border */
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #00FFFF; /* Cyan border */
+    }
+
+    .modal-title {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    .modal-footer .btn {
+        margin: 0 5px;
+    }
+
+    /* Table Styling */
+    .table {
+        color: #FFFFFF; /* White text */
+        background-color: #1A2428; /* Dark table background */
+        border: 1px solid #00FFFF; /* Cyan border */
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: white;
+    }
+
+    .table th {
+        color: white; /* Cyan for headers */
+        background-color: #1A2428;
+    }
+
+    .table td {
+        color: white;
+    }
+
+    /* Badge Styling */
+    .badge {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 12px;
+    }
+
+        .badge.bg-success {
+            background-color: #28A745; /* Green for success */
+            color: #FFFFFF;
+        }
+
+        .badge.bg-warning {
+            background-color: #FFC107; /* Yellow for warning */
+            color: #0D1517; /* Dark text for contrast */
+        }
+
+    /* Animations */
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .modal-dialog {
+            margin: 20px;
+        }
+
+        .btn {
+            width: 100%; /* Full-width buttons on small screens */
+        }
+    }
+</style>

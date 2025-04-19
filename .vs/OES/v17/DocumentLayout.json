@@ -1,0 +1,137 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|c:\\users\\prasa\\onedrive\\desktop\\last\\oes\\views\\student\\startexam.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\views\\student\\startexam.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|C:\\Users\\prasa\\OneDrive\\Desktop\\last\\oes\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|C:\\Users\\prasa\\OneDrive\\Desktop\\last\\oes\\views\\teacher\\gotoexams.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\views\\teacher\\gotoexams.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|C:\\Users\\prasa\\OneDrive\\Desktop\\last\\oes\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|C:\\Users\\prasa\\OneDrive\\Desktop\\last\\oes\\views\\shared\\_defaultnavbarlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\views\\shared\\_defaultnavbarlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|C:\\Users\\prasa\\OneDrive\\Desktop\\last\\oes\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|C:\\Users\\prasa\\OneDrive\\Desktop\\last\\oes\\views\\teacher\\gotoresults.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E987397A-C4EE-4B83-AAF9-F28CDBFACD91}|OES\\OES123.csproj|solutionrelative:oes\\views\\teacher\\gotoresults.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 280,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "OES\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "OES\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAA4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-10T04:35:40.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GoToResults.cshtml",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Teacher\\GoToResults.cshtml",
+              "RelativeDocumentMoniker": "OES\\Views\\Teacher\\GoToResults.cshtml",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Teacher\\GoToResults.cshtml",
+              "RelativeToolTip": "OES\\Views\\Teacher\\GoToResults.cshtml",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAAANYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-09T19:24:05.075Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GoToExams.cshtml",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Teacher\\GoToExams.cshtml",
+              "RelativeDocumentMoniker": "OES\\Views\\Teacher\\GoToExams.cshtml",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Teacher\\GoToExams.cshtml",
+              "RelativeToolTip": "OES\\Views\\Teacher\\GoToExams.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB0AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-09T19:22:33.603Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TeacherController.cs",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Controllers\\TeacherController.cs",
+              "RelativeDocumentMoniker": "OES\\Controllers\\TeacherController.cs",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Controllers\\TeacherController.cs",
+              "RelativeToolTip": "OES\\Controllers\\TeacherController.cs",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAIwAoBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-09T15:30:26.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StartExam.cshtml",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Student\\StartExam.cshtml",
+              "RelativeDocumentMoniker": "OES\\Views\\Student\\StartExam.cshtml",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Student\\StartExam.cshtml",
+              "RelativeToolTip": "OES\\Views\\Student\\StartExam.cshtml",
+              "ViewState": "AgIAAAwCAAAAAAAAAAAUwCMCAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-09T10:11:42.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_DefaultNavbarLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Shared\\_DefaultNavbarLayout.cshtml",
+              "RelativeDocumentMoniker": "OES\\Views\\Shared\\_DefaultNavbarLayout.cshtml",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Views\\Shared\\_DefaultNavbarLayout.cshtml",
+              "RelativeToolTip": "OES\\Views\\Shared\\_DefaultNavbarLayout.cshtml",
+              "ViewState": "AgIAACQCAAAAAAAAAAAAAKABAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-10T04:47:03.773Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "OES\\Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Users\\prasa\\OneDrive\\Desktop\\last\\OES\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "OES\\Controllers\\StudentController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-09T10:03:01.013Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+﻿@model OES.Models.ExamAndEStatus
+
+@{
+    ViewBag.Title = "GoToBatch";
+    Layout = "~/Views/Shared/_Student_Layout.cshtml";
+}
+
+<link rel="icon" href="~/Images/fevicon.png" type="image/png" />
+<style>
+    body {
+        font-family: 'Cormorant Infant', serif;
+        background-color: #1c1f26;
+        color: white;
+        margin: 0;
+    }
+
+    /* Custom Styles for Student Info Card */
+    .student-info-card {
+        background-color: #1A2428; /* Dark background */
+        color: white;
+        border: 1px solid #FFD700;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        text-align: center;
+        width: 100%; /* Ensure full width for mobile responsiveness */
+        max-width: 600px; /* Limit max width to prevent too wide on large screens */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .student-info-card h2 {
+            margin-bottom: 1.5rem;
+            color: #FFD700; /* Golden color for header */
+        }
+
+        .student-info-card p {
+            font-size: 1rem;
+        }
+
+        .student-info-card strong {
+            color: #FFD700; /* Highlight "strong" text */
+        }
+
+    /* Card header for exam titles */
+    .card-header {
+        background-color: #333;
+        font-size: 1.25rem;
+        color: #FFD700;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 2px solid #FFD700;
+    }
+
+    /* Card body for exams */
+    .card {
+        background-color: #1A2428; /* Dark background for the card */
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .card-body {
+        padding: 1.5rem;
+        text-align: left;
+    }
+
+    /* Flex container for Subject/Date and Marks/Duration */
+    .exam-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+        .exam-info div {
+            width: 45%;
+        }
+
+    /* Section Title: Golden color */
+    .section-title {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #FFD700;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Output (Subject, Date, Marks, Duration): White text */
+    .exam-info p {
+        color: white; /* Make the values (Subject, Date, Marks, Duration) white */
+    }
+
+    /* Marks Output - ensure it's white */
+    .marks-output {
+        color: white; /* Marks output in white */
+    }
+
+    .card-footer {
+        text-align: center;
+    }
+
+    .btn-start {
+        background-color: #00FFFF; /* Cyan */
+        color: #0D1517;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        border: none;
+    }
+
+        .btn-start:hover {
+            background-color: #00cccc; /* Slightly darker cyan */
+            transform: scale(1.05);
+        }
+
+    .badge-status {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .badge-pending {
+        background-color: #FF6347; /* Tomato red */
+    }
+
+    .badge-completed {
+        background-color: #28a745; /* Success green */
+    }
+
+    .alert {
+        background-color: #FFD700;
+        color: #0D1517;
+        border-radius: 8px;
+        padding: 1rem;
+        font-weight: bold;
+    }
+
+    .alert-dismissible {
+        margin-top: 20px;
+    }
+</style>
+
+<!-- Student Information Card -->
+<div class="container">
+    <div class="student-info-card">
+        <h2>Student Information</h2>
+        <p><strong>Student ID:</strong> @Model.Student.StudentId</p>
+        <p><strong>Name:</strong> @Model.Student.StuName</p>
+        <p><strong>Email:</strong> @Model.Student.StuEmail</p>
+    </div>
+</div>
+
+<!-- Back Link -->
+@*<div class="text-center mb-4">
+        @Html.ActionLink("Back", "StudentDashboard", "Student", new { studentId = @Model.Student.StudentId }, null)
+    </div>*@
+
+<!-- Exam Section -->
+<section class="container-fluid py-5">
+    @if (Model.CreateExamInfo != null && Model.CreateExamInfo.Any())
+    {
+        <div class="container">
+            <h2 class="text-center mb-4">Exams</h2>
+            <div class="row g-4">
+                @foreach (var exam in Model.CreateExamInfo)
+                {
+                    if (exam.ExamStatus == true)
+                    {
+                        <div class="col-md-4">
+                            <div class="card">
+                                <!-- Card Header: Exam Name -->
+                                <div class="card-header">
+                                    @exam.ExamName
+                                </div>
+
+                                <!-- Card Body: Exam Information -->
+                                <div class="card-body">
+                                    <!-- Exam Info: Subject and Date on same line -->
+                                    <div class="exam-info">
+                                        <div>
+                                            <div class="section-title">Subject</div>
+                                            <p>@exam.ExamSubName</p> <!-- Subject name in white -->
+                                        </div>
+                                        <div>
+                                            <div class="section-title">Date</div>
+                                            <p>@exam.ExamDate.ToString("yyyy-MM-dd")</p> <!-- Date in white -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Exam Info: Marks and Duration on same line -->
+                                    <div class="exam-info">
+                                        <div>
+                                            <div class="section-title">Marks</div>
+                                            <p class="marks-output">@exam.ExamMarks</p> <!-- Marks output in white -->
+                                        </div>
+                                        <div>
+                                            <div class="section-title">Duration</div>
+                                            <p>@exam.ExamDuration Minutes</p> <!-- Duration in white -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Exam Status Section -->
+                                    <div class="card-footer">
+                                        @{
+                                            bool examCompleted = false;
+                                            int? examMarks = null;
+                                            foreach (var status in Model.ExamStatus)
+                                            {
+                                                if (exam.ExamId == status.ExamId && Model.Student.StudentId == status.StudentId)
+                                                {
+                                                    examMarks = status.Marks;
+                                                    examCompleted = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        @if (examCompleted)
+                                        {
+                                            <span class="badge badge-status badge-completed">Completed</span>
+                                            <p class="marks-output"><strong>Marks:</strong> @examMarks</p> <!-- Marks output in white -->
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-status badge-pending">Pending</span>
+                                            @Html.ActionLink("Start Exam", "StartExam", "Student", new { examid = exam.ExamId, studentid = @Model.Student.StudentId }, new { @class = "btn-start btn-sm" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>No exams found.</strong>
+        </div>
+    }
+</section>
